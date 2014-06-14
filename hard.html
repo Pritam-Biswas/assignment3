@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Hard mode</title>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+var str=[[2,2,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]];
+    var node=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+    var num=0,nodecount=0,score=100,prev1=-1,prev2=-1;
+	
+	
+	
+	$("#another").click(function(){
+		
+		if(num==0)
+	{
+	var m = Math.floor((Math.random() * 4));
+	var n = Math.floor((Math.random() * 4));
+	str[m][n]=0;
+	prev1=m;
+	prev2=n;
+	num++;
+	fill(prev1,prev2);
+	display(prev1,prev2);
+	 
+	}
+		
+		
+		
+		else if(num>0&&num<4){
+		
+		nodecount=0;
+    for(var i=0;i<=3;i++)
+    {
+        for(var j=0;j<=3;j++)
+        {
+        if(str[i][j]==2)
+        {
+        node[nodecount]=10*i+j;
+        nodecount++;
+        }
+        }
+    
+    
+    }// end of outer for
+        
+       var rand=Math.floor(Math.random() * nodecount); 
+            var m=Math.floor(node[rand]/10);
+            var n=node[rand]%10;
+            str[m][n]=0;
+            fill(m,n);
+           
+            if(num==1||num==2)
+			score-=30;
+			if(num==3)
+			score-=40;
+			  num++;
+			display(m,n);
+		$("#scorestat").text(score);
+		
+		
+		
+		}
+		
+		
+		
+		else{
+			 $("#bot").text("You score is 0.You dont have any chance left!!");
+		
+		}
+		
+		
+		
+		
+		});
+	
+	
+	function fill( m, n)
+{
+for(var i=m-1;i<=m+1;i++)
+{for(var j=n-1;j<=n+1;j++)
+    {
+    if(i>=0&&i<=3&&j>=0&&j<=3)
+    {
+    if(str[i][j]!=0)
+    str[i][j]=-1;
+    }
+    
+    }
+
+}
+  
+    
+    
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$("#submitans").click(function(){
+		
+		var m=$("#tb").val();
+		if(num<4)
+		{
+		if(m.toUpperCase()=="GOLDEN TEMPLE")
+		{
+			
+		 $("#bot").text("Congratulations.Your answer is correct!! Score="+score);
+		num=10;
+		setAll(true);
+		}
+		else
+		{
+		 $("#bot").text("Sorry.Your answer is wrong!!");
+		}
+		}
+		else
+		 $("#bot").text("Sorry.Your score is 0");
+		});
+		
+		
+		
+			
+	$("#restart").click(function(){
+	 str=[[2,2,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]];
+     node=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+     num=0,nodecount=0;score=100;
+	 setAll(false);
+		 $("#bot").text("");
+		$("#scorestat").text(score);
+		
+
+	
+	
+	});
+	
+	function setAll(x)
+	{
+		if(x==true)
+		{
+		 $("#container").children().fadeIn();
+		 
+		 
+		 
+		 
+		 
+		}
+		if(x==false)
+		{
+		
+		 $("#container").children().fadeOut();
+		}
+	}
+	
+	
+	function display(tmp1,tmp2)
+{
+var x=10*tmp1+tmp2;
+switch(x)
+{
+case 0:
+$("#one").fadeIn();
+break;
+
+case 1:
+$("#two").fadeIn();
+break;
+
+case 2:
+$("#three").fadeIn();
+break;
+
+case 3:
+$("#four").fadeIn();
+break;
+
+
+case 10:
+$("#five").fadeIn();
+break;
+
+case 11:
+$("#six").fadeIn();
+break;
+
+case 12:
+$("#seven").fadeIn();
+break;
+
+case 13:
+$("#eight").fadeIn();
+break;
+
+case 20:
+$("#nine").fadeIn();
+break;
+
+case 21:
+$("#ten").fadeIn();
+break;
+
+case 22:
+$("#eleven").fadeIn();
+break;
+
+case 23:
+$("#twelve").fadeIn();
+break;
+
+case 30:
+$("#thirteen").fadeIn();
+break;
+
+case 31:
+$("#fourteen").fadeIn();
+break;
+
+case 32:
+$("#fifteen").fadeIn();
+break;
+
+case 33:
+$("#sixteen").fadeIn();
+break;
+
+}
+
+
+}
+
+	
+
+
+});
+</script>
+
+</head>
+
+<body>
+
+<style>
+body{background-image:url(back_game.jpg) ;
+
+} 
+#container{
+position:absolute;
+top:80px;
+left:400px;
+height:370px;
+width:570px;
+background-image:url(game_cover.jpg);
+ border:4px groove #00F;  
+
+}
+
+
+#gameinfo{
+position:absolute;
+top:80px;
+left:50px;
+height:400px;
+width:250px;
+background: -webkit-linear-gradient(left top, green , yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, green, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, green, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, green , yellow); /* Standard syntax */
+border: 5px inset #909;
+border-radius: 25px 0px 25px 0px;
+	
+	
+	
+	
+}
+
+#restart{
+	position:absolute;
+	top:10px;
+	left:10px;
+background-color:#000;
+	color:#FFF;font-size:16px;
+}
+
+#another{
+position:absolute;
+top:70px;
+left:10px;
+background-color:#000;
+	color:#FFF;	font-size:16px;
+}
+#submitans{
+position:absolute;
+top:200px;
+left:10px;	
+	background-color:#000;
+	color:#FFF;
+font-size:16px;
+}
+#tb{
+position:absolute;
+top:160px;
+left:10px;	
+	background-color:#93F;
+	font-size:15px;color:#FFF;
+}
+#score{
+	
+	
+	position:absolute;
+	top:230px;
+	left:10px;
+	font-size:25px;
+	
+}
+
+#scorestat{
+	
+	
+	position:absolute;
+	top:290px;
+	left:10px;
+	font-size:25px;
+	color:#00C;
+}
+
+#one{
+
+	background-image:url(00.png);
+	height:92.5px;
+	width:142.5px;
+position:absolute;
+top:0px;
+left:0px;display:none;
+}
+#two{
+	background-image:url(01.png);
+height:92.5px;
+	width:142.5px;
+position:absolute;
+top:0px;
+left:142.5px;display:none;	
+}
+#three{
+	
+background-image:url(02.png);
+height:92.5px;
+	width:142.5px;
+position:absolute;	
+top:0px;
+left:285px;	display:none;
+}
+
+#four{
+	
+background-image:url(03.png);
+height:92.5px;
+	width:142.5px;
+position:absolute;	
+top:0px;
+left:427.5px;	display:none;
+}
+#five{
+	
+background-image:url(10.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:92.5px;
+left:0px;	display:none;
+}
+#six{
+	
+background-image:url(11.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:92.5px;
+left:142.5px;display:none;	
+}
+#seven{
+	
+background-image:url(12.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:92.5px;
+left:285px;	display:none;
+}
+#eight{
+	
+background-image:url(13.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:92.5px;
+left:427.5px;	
+	display:none;
+}
+#nine{
+	
+background-image:url(20.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:185px;
+left:0px;	display:none;
+}
+#ten{
+	
+background-image:url(21.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:185px;
+left:142.5px;
+display:none;	
+}
+#eleven{
+	
+background-image:url(22.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:185px;
+left:285px;
+display:none;	
+}
+#twelve{
+	
+background-image:url(23.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:185px;
+left:427.5px;
+display:none;	
+}
+
+#thirteen{
+	
+background-image:url(30.png);
+height:92.5px;
+	width:142.5px;
+	position:absolute;
+top:277.5px;
+left:0px;	
+display:none;	
+}
+#fourteen{
+	
+background-image:url(31.png);
+height:92.5px;
+	width:142.5px;
+		position:absolute;
+top:277.5px;
+left:142.5px;	
+display:none;	
+}
+#fifteen{
+	
+background-image:url(32.png);
+height:92.5px;
+	width:142.5px;
+		
+		position:absolute;
+top:277.5px;
+left:285px;	
+display:none;
+}
+#sixteen{
+	
+background-image:url(33.png);
+height:92.5px;
+	width:142.5px;
+		position:absolute;
+top:277.5px;
+left:427.5px;	
+display:none;	
+}
+#top{
+	
+position:absolute;
+top:15px;
+left:530px;
+height:45px;
+width:300px;
+font-size:35px;
+font-style:italic;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+background: -webkit-linear-gradient(left top, #906 , #03F	); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #906, #03F); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #906, #03F); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #906 , #03F); /* Standard syntax */
+border: 5px inset #0FF;
+border-radius: 25px 25px 25px 25px;
+color:#FFF;
+}
+
+#bot{
+	
+position:absolute;
+top:535px;
+left:520px;
+height:60px;
+width:400px;
+font-size:20px;
+font-style:italic;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+background: -webkit-linear-gradient(left top, #6C3 , #6FF	); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #6C3, #6FF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right,  #6C3, #6FF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right,  #6C3 , #6FF); /* Standard syntax */
+border: 5px inset #90C;
+border-radius: 0px 25px 0px 25px;
+color:#FFF;
+text-align:center;
+
+}
+#info{
+	
+position:absolute;
+top:470px;
+left:650px;
+height:40px;
+width:100px;
+font-size:20px;
+font-style:italic;font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+background: -webkit-linear-gradient(left top, #6C3 , #6FF	); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #6C3, #6FF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right,  #6C3, #6FF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right,  #6C3 , #6FF); /* Standard syntax */
+border: 5px inset #F00;
+border-radius: 25px 0px 25px 0px;
+color:#FFF;
+text-align:center;
+
+}
+
+</style>
+<div id="top">
+<b>Guess the Image !!</b>
+</div>
+
+<div id="bot">
+
+</div>
+<div id="info">
+Info Bar
+</div>
+<div id="container">
+<div id="one">
+
+</div>
+<div id="two">
+
+</div>
+
+<div id="three">
+
+</div>
+
+<div id="four">
+
+</div>
+
+<div id="five">
+
+</div>
+
+<div id="six">
+
+</div>
+
+<div id="seven">
+
+</div>
+
+<div id="eight">
+
+</div>
+
+<div id="nine">
+
+</div>
+
+<div id="ten">
+
+</div>
+
+<div id="eleven">
+
+</div>
+
+<div id="twelve">
+
+</div>
+
+<div id="thirteen">
+
+</div>
+
+<div id="fourteen">
+
+</div>
+
+<div id="fifteen">
+
+</div>
+
+<div id="sixteen">
+
+</div>
+
+
+
+</div>
+
+<div id="gameinfo">
+<input type="button" value="Restart" id="restart" />
+<input type="button" value="Get Another Part" id="another" />
+<input type="button" value="Submit Answer" id="submitans" />
+<input type="text"  id="tb" value=""/>
+<p id="score"> Your Score is :</p>
+<div id="scorestat">100</div>
+
+
+</div>
+
+
+
+
+</body>
+</html>
